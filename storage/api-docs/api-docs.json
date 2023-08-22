@@ -1,0 +1,1973 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "SH3 Backend API",
+        "description": "API de Atendimentos feita por Hugo Galli para SH3",
+        "contact": {
+            "name": "Hugo Galli",
+            "email": "hugo.galli.r@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/analistas/{analistaId}/areas/{areaId}": {
+            "post": {
+                "tags": [
+                    "Analista-Áreas"
+                ],
+                "summary": "Associar analista a área",
+                "description": "Associa um analista a uma área específica. ",
+                "operationId": "associateAnalistaArea",
+                "parameters": [
+                    {
+                        "name": "analistaId",
+                        "in": "path",
+                        "description": "ID do analista",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "areaId",
+                        "in": "path",
+                        "description": "ID da área",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Analista associated with area successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Analista ou área não encontrados"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/analista-areas/dissociate/{analistaId}/{areaId}": {
+            "post": {
+                "tags": [
+                    "Analista-Áreas"
+                ],
+                "summary": "Desassociar analista de área",
+                "description": "Desassocia um analista de uma área específica.",
+                "operationId": "dissociateAnalistaArea",
+                "parameters": [
+                    {
+                        "name": "analistaId",
+                        "in": "path",
+                        "description": "ID do analista",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "areaId",
+                        "in": "path",
+                        "description": "ID da área",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Analista dissociated from area successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Analista ou área não encontrados"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/areas": {
+            "get": {
+                "tags": [
+                    "Áreas"
+                ],
+                "summary": "Lista de áreas",
+                "description": "Retorna a lista de áreas",
+                "operationId": "f16518e18a005a2f966b63c0e1745342",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "areas": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Area"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/area": {
+            "post": {
+                "tags": [
+                    "Áreas"
+                ],
+                "summary": "Criar uma nova área",
+                "description": "Cria uma nova área",
+                "operationId": "e0f26c363ff9ac10e23b932711798e65",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "description": "Título da área",
+                                        "type": "string",
+                                        "example": "Nova Área"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Área criada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Área criada com sucesso"
+                                        },
+                                        "area": {
+                                            "$ref": "#/components/schemas/Area"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/area/{id}": {
+            "get": {
+                "tags": [
+                    "Áreas"
+                ],
+                "summary": "Detalhes de uma área específica",
+                "description": "Retorna os detalhes de uma área específica",
+                "operationId": "cbf3e9187032439d3e6c110d1061a3ae",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da área",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "area": {
+                                            "$ref": "#/components/schemas/Area"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Área não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Áreas"
+                ],
+                "summary": "Atualizar uma área existente",
+                "description": "Atualiza uma área existente",
+                "operationId": "56bfb71778faaf297d418afd709cc9bb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da área",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "description": "Novo título da área",
+                                        "type": "string",
+                                        "example": "Novo Título"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Área atualizada com sucesso"
+                                        },
+                                        "area": {
+                                            "$ref": "#/components/schemas/Area"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Área não encontrada"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Áreas"
+                ],
+                "summary": "Excluir uma área",
+                "description": "Exclui uma área",
+                "operationId": "2e2ec2b139a849792cc2fb51cf460d0a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da área",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Área excluída com sucesso"
+                                        },
+                                        "area": {
+                                            "$ref": "#/components/schemas/Area"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Área não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimentos": {
+            "get": {
+                "tags": [
+                    "Atendimentos"
+                ],
+                "summary": "Lista de atendimentos",
+                "description": "Retorna a lista de atendimentos",
+                "operationId": "e26b4505ca2c999ff4bd9e86cbdc2e7e",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "atendimentos": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Atendimento"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimento": {
+            "post": {
+                "tags": [
+                    "Atendimentos"
+                ],
+                "summary": "Criar um novo atendimento",
+                "description": "Cria um novo atendimento",
+                "operationId": "af8235d4d9daea32a9bb810585aaea14",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Título do atendimento"
+                                    },
+                                    "tipo": {
+                                        "type": "string",
+                                        "example": "problema"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Descrição do atendimento"
+                                    },
+                                    "pessoa": {
+                                        "type": "string",
+                                        "example": "Nome da pessoa"
+                                    },
+                                    "cliente_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "area_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Atendimento criado com sucesso"
+                                        },
+                                        "atendimento": {
+                                            "$ref": "#/components/schemas/Atendimento"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Apenas atendentes podem criar novos atendimentos"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimento/{id}": {
+            "get": {
+                "tags": [
+                    "Atendimentos"
+                ],
+                "summary": "Detalhes de um atendimento especifico",
+                "description": "Retorna os detalhes de um atendimento específico",
+                "operationId": "ec919242f7b4136b5690197992c16c16",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do atendimento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "atendimento": {
+                                            "$ref": "#/components/schemas/Atendimento"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Atendimento não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Atendimentos"
+                ],
+                "summary": "Excluir um atendimento",
+                "description": "Permite que um usuario exclua um atendimento",
+                "operationId": "d3220ddaa6cc52e742541d14f867e15c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do atendimento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Atendimento excluído com sucesso"
+                                        },
+                                        "atendimento": {
+                                            "$ref": "#/components/schemas/Atendimento"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Atendimento não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimento/posse/{id}": {
+            "put": {
+                "tags": [
+                    "Atendimentos"
+                ],
+                "summary": "Tomar posse de um atendimento",
+                "description": "Permite que um analista tome posse de um atendimento em andamento",
+                "operationId": "4dd2cf7c9c30348aefb2389d3be326ba",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do atendimento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Atendimento em andamento após tomar posse"
+                                        },
+                                        "atendimento": {
+                                            "$ref": "#/components/schemas/Atendimento"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Apenas analistas da area podem tomar posse de atendimentos"
+                    },
+                    "404": {
+                        "description": "Atendimento não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimento/transferir/{atendimentoId}/analista/{analistaId}": {
+            "put": {
+                "tags": [
+                    "Atendimentos"
+                ],
+                "summary": "Transferir um atendimento",
+                "description": "Permite que um atendente transfira um atendimento para outro analista",
+                "operationId": "6d6d8f26159cc0b961409601a24a19fe",
+                "parameters": [
+                    {
+                        "name": "atendimentoId",
+                        "in": "path",
+                        "description": "ID do atendimento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "analistaId",
+                        "in": "path",
+                        "description": "ID do analista para transferência",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Atendimento transferido com sucesso"
+                                        },
+                                        "atendimento": {
+                                            "$ref": "#/components/schemas/Atendimento"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Apenas atendentes podem transferir atendimentos ou analista designado não trabalha na area do atendimento"
+                    },
+                    "404": {
+                        "description": "Atendimento ou analista não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimento/completar/{id}": {
+            "put": {
+                "tags": [
+                    "Atendimentos"
+                ],
+                "summary": "Completar um atendimento",
+                "description": "Permite que o analista responsável marque um atendimento como concluído",
+                "operationId": "5239166346d7afafb74efd340de6576a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do atendimento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "info_adicional": {
+                                        "type": "string",
+                                        "example": "Informações adicionais sobre o atendimento"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Atendimento marcado como concluído"
+                                        },
+                                        "atendimento": {
+                                            "$ref": "#/components/schemas/Atendimento"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Apenas suportes podem completar atendimentos ou o usuário não é o dono do atendimento"
+                    },
+                    "404": {
+                        "description": "Atendimento não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimentos/relatorios/clienteshoje": {
+            "get": {
+                "tags": [
+                    "Relatórios"
+                ],
+                "summary": "Relatório de clientes contatados",
+                "description": "Retorna o relatório de clientes que entraram em contato hoje",
+                "operationId": "05c8a423955458c38505a041b1c093bf",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "clientes_contatados": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "nome": {
+                                                        "type": "string",
+                                                        "example": "Nome do Cliente 1"
+                                                    },
+                                                    "num_atendimentos": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Apenas gerentes podem acessar este relatório"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimentos/relatorios/analistashoje": {
+            "get": {
+                "tags": [
+                    "Relatórios"
+                ],
+                "summary": "Relatório de atendimentos por analista",
+                "description": "Retorna o relatório de atendimentos atendidos por usuarios de suporte no dia de hoje",
+                "operationId": "d8811d04c7df6c2d3c70b6b3211cacab",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "atendimentos_por_analista": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "analista_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "nome": {
+                                                        "type": "string",
+                                                        "example": "Nome do Analista"
+                                                    },
+                                                    "num_total_atendimentos": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "num_atendimentos_concluidos": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Apenas gerentes podem acessar este relatório"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimentos/relatorios/areashoje": {
+            "get": {
+                "tags": [
+                    "Relatórios"
+                ],
+                "summary": "Relatório de atendimentos por área",
+                "description": "Retorna o relatório de atendimentos por área no dia de hoje",
+                "operationId": "ebdfa042ab2907511d4b8519e5489a7b",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "areas_procuradas": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "area": {
+                                                        "type": "string",
+                                                        "example": "Área 1"
+                                                    },
+                                                    "num_atendimentos": {
+                                                        "type": "integer",
+                                                        "example": 8
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Apenas gerentes podem acessar este relatório"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimentos/relatorios/tiposhoje": {
+            "get": {
+                "tags": [
+                    "Relatórios"
+                ],
+                "summary": "Relatório de atendimentos por tipo",
+                "description": "Retorna o relatório de atendimentos por tipo no dia de hoje",
+                "operationId": "22af133af747ac3a766cbf53658a3ee1",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "tipos_atendimento": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "tipo": {
+                                                        "type": "string",
+                                                        "example": "problema"
+                                                    },
+                                                    "num_atendimentos": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Apenas gerentes podem acessar este relatório"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimentos/relatorios/pendenteshoje": {
+            "get": {
+                "tags": [
+                    "Relatórios"
+                ],
+                "summary": "Relatório de atendimentos pendentes",
+                "description": "Retorna o relatório de atendimentos pendentes hoje",
+                "operationId": "c3f6126861b90337d9f9bb3c2af25910",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "atendimentos_pendentes_hoje": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Título do Atendimento"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Descrição do Atendimento"
+                                                    },
+                                                    "pessoa": {
+                                                        "type": "string",
+                                                        "example": "Nome da Pessoa"
+                                                    },
+                                                    "cliente": {
+                                                        "type": "string",
+                                                        "example": "Nome do Cliente"
+                                                    },
+                                                    "area": {
+                                                        "type": "string",
+                                                        "example": "Nome da Área"
+                                                    },
+                                                    "tipo": {
+                                                        "type": "string",
+                                                        "example": "problema"
+                                                    },
+                                                    "atendente": {
+                                                        "type": "string",
+                                                        "example": "Nome do Atendente"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Apenas gerentes podem acessar este relatório"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/atendimentos/relatorios/pendentesporanalista": {
+            "get": {
+                "tags": [
+                    "Relatórios"
+                ],
+                "summary": "Relatório de Atendimentos Pendentes para o Analista",
+                "description": "Retorna um relatório de atendimentos pendentes que podem ser possuídos pelo analista logado, nas áreas em que ele está associado, mostrando primeiro os atendimentos mais antigos.",
+                "operationId": "fd086b4c88af85ea3d07cecbfd36add4",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "atendimentos_pendentes": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Atendimento"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Acesso não autorizado. (Somente usuarios do tipo suporte podem acessar essa funcionalidade)"
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Autenticar Usuário",
+                "description": "Autentica o usuário e gera um token de acesso.",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "headers": {
+                            "Authorization": {
+                                "description": "Bearer token",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Registrar Novo Usuário",
+                "description": "Registra um novo usuário.",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "type"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "atendente",
+                                            "gerente",
+                                            "suporte"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        },
+                                        "authorisation": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "bearer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Logout",
+                "description": "Realiza o logout do usuário.",
+                "operationId": "fe8f3429cd6979b3b4517e186505f9f9",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/refresh": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Atualizar Token",
+                "description": "Atualiza o token de acesso.",
+                "operationId": "2c27d311a2876560fcb5a754b556cdc5",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        },
+                                        "authorisation": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "bearer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/{id}": {
+            "get": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Obter Dados de um Determinado Usuario",
+                "description": "Retorna os dados de um determinado usuario pelo ID .",
+                "operationId": "657aa33dec3c63db7b18f0c4a40de469",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Somente o proprio usuario pode ver seu perfil"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/userinfo": {
+            "get": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Obter dados do usuario logado",
+                "description": "Retorna os dados do usuario que está atualmente logado",
+                "operationId": "51d35f87a8096075e952a5148010aa8e",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Somente o proprio usuario pode ver seu perfil"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/clientes": {
+            "get": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Lista de clientes",
+                "description": "Retorna a lista de clientes",
+                "operationId": "de55d50d1b708d9e5c63ee3f8fe8f54a",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "clientes": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Cliente"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/cliente": {
+            "post": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Criar um novo cliente",
+                "description": "Cria um novo cliente",
+                "operationId": "469f4d88a1d27b95b61b0922e033d8f3",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "description": "Título do cliente",
+                                        "type": "string",
+                                        "example": "Novo Cliente"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cliente criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente criado com sucesso"
+                                        },
+                                        "cliente": {
+                                            "$ref": "#/components/schemas/Cliente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        },
+        "/api/cliente/{id}": {
+            "get": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Detalhes de um cliente específico",
+                "description": "Retorna os detalhes de um cliente específico",
+                "operationId": "813f501e73b90e51802f8a9400987353",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "cliente": {
+                                            "$ref": "#/components/schemas/Cliente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Atualizar um cliente existente",
+                "description": "Atualiza um cliente existente",
+                "operationId": "6be039ccbab018c4c6a738085884af79",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "description": "Novo título do cliente",
+                                        "type": "string",
+                                        "example": "Novo Título"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente atualizado com sucesso"
+                                        },
+                                        "cliente": {
+                                            "$ref": "#/components/schemas/Cliente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Excluir um cliente",
+                "description": "Exclui um cliente",
+                "operationId": "3a430f92cf9e8f7d799e351d936f8e0e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cliente excluído com sucesso"
+                                        },
+                                        "cliente": {
+                                            "$ref": "#/components/schemas/Cliente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Cliente não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AnalistaArea": {
+                "title": "AnalistaArea",
+                "description": "Representa a associação entre um analista e uma área.",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "analista_id": {
+                        "description": "ID do analista",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "area_id": {
+                        "description": "ID da área",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Area": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Area A"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Atendimento": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "tipo": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "pessoa": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "cliente_id": {
+                        "type": "integer"
+                    },
+                    "area_id": {
+                        "type": "integer"
+                    },
+                    "analista_id": {
+                        "type": "integer"
+                    },
+                    "info_adicional": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "description": "Objeto de usuário",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "john@example.com"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "atendente"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Cliente": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Cliente A"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "jwt_token": {
+                "type": "apiKey",
+                "scheme": "bearer",
+                "description": "Insira valores no formato (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Analista-Áreas",
+            "description": "Endpoints relacionados a relação de usuários do tipo Suporte com suas áreas de atuação"
+        },
+        {
+            "name": "Áreas",
+            "description": "Endpoints relacionados a manipulação de Áreas"
+        },
+        {
+            "name": "Atendimentos",
+            "description": "Endpoints relacionados a atendimentos"
+        },
+        {
+            "name": "Autenticação",
+            "description": "Endpoints relacionados a autenticação do user"
+        },
+        {
+            "name": "Clientes",
+            "description": "Endpoints relacionados a manipulação de Clientes"
+        }
+    ]
+}
