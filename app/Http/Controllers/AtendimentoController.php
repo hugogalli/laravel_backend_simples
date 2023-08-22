@@ -556,10 +556,8 @@ class AtendimentoController extends Controller
             ->whereDate('created_at', $today)
             ->pluck('cliente_id');
 
-        // Carregar os dados dos clientes contatados hoje
         $clientesContatados = Cliente::whereIn('id', $clientes)->get();
 
-        // Para cada cliente, contar o número de atendimentos
         $clientesComAtendimentos = $clientesContatados->map(function ($cliente) use ($today) {
             $numAtendimentos = Atendimento::where('cliente_id', $cliente->id)
                 ->whereDate('created_at', $today)
@@ -611,7 +609,6 @@ class AtendimentoController extends Controller
      */
     public function analistas()
     {
-        // Verifique se o usuário autenticado é um gerente
         if (Auth::user()->type != 'gerente') {
             return response()->json([
                 'status' => 'error',
@@ -621,12 +618,10 @@ class AtendimentoController extends Controller
 
         $today = Carbon::today();
 
-        // Obter todos os atendimentos realizados hoje por analistas
         $atendimentos = Atendimento::whereDate('created_at', $today)
             ->whereNotNull('analista_id')
             ->get();
 
-        // Criar um array associativo para armazenar os totais por analista
         $totaisPorAnalista = [];
 
         foreach ($atendimentos as $atendimento) {
@@ -753,7 +748,6 @@ class AtendimentoController extends Controller
 
     public function tipos()
     {
-        // Verifique se o usuário autenticado é um gerente
         if (Auth::user()->type != 'gerente') {
             return response()->json([
                 'status' => 'error',
@@ -822,7 +816,6 @@ class AtendimentoController extends Controller
      */
     public function pendentes()
     {
-        // Verifique se o usuário autenticado é um gerente
         if (Auth::user()->type != 'gerente') {
             return response()->json([
                 'status' => 'error',
@@ -834,7 +827,7 @@ class AtendimentoController extends Controller
 
         $atendimentosPendentes = Atendimento::where('status', 'pendente')
             ->whereDate('created_at', $today)
-            ->with(['cliente', 'area', 'user']) // Carregar as relações
+            ->with(['cliente', 'area', 'user']) 
             ->get();
 
         $result = [];
