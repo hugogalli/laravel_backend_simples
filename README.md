@@ -33,5 +33,5 @@ php artisan serve
 8. Acesse a documentação e uso da API sem integração em: [http://localhost:8000/api/documentation](http://localhost:8000/api/documentation)
 
 
-9. Para executar testes unitários automatizados, use o comando: 
+9. Para executar testes unitários automatizados, use o comando:
 php artisan test --env=testing
