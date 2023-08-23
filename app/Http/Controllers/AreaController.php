@@ -88,10 +88,6 @@ class AreaController extends Controller
      *         response=401,
      *         description="Não autorizado",
      *     ),
-     *     @OA\Response(
-     *         response=422,
-     *         description="Erro de validação",
-     *     ),
      * )
      */
     public function criarNovo(Request $request)
@@ -189,10 +185,6 @@ class AreaController extends Controller
      *     @OA\Response(
      *         response=404,
      *         description="Área não encontrada",
-     *     ),
-     *     @OA\Response(
-     *         response=422,
-     *         description="Erro de validação",
      *     ),
      * )
      */

@@ -61,6 +61,9 @@
                     },
                     "404": {
                         "description": "Analista ou área não encontrados"
+                    },
+                    "403": {
+                        "description": "Analista já esta associado com a área"
                     }
                 },
                 "security": [
@@ -137,7 +140,7 @@
                 ],
                 "summary": "Lista de áreas",
                 "description": "Retorna a lista de áreas",
-                "operationId": "f16518e18a005a2f966b63c0e1745342",
+                "operationId": "be33529aab2680ada17a9e0a7904a75b",
                 "responses": {
                     "200": {
                         "description": "Sucesso",
@@ -179,7 +182,7 @@
                 ],
                 "summary": "Criar uma nova área",
                 "description": "Cria uma nova área",
-                "operationId": "e0f26c363ff9ac10e23b932711798e65",
+                "operationId": "bb1d3b1cb9b96591cff2f6cb95967048",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -241,7 +244,7 @@
                 ],
                 "summary": "Detalhes de uma área específica",
                 "description": "Retorna os detalhes de uma área específica",
-                "operationId": "cbf3e9187032439d3e6c110d1061a3ae",
+                "operationId": "7de701e35c448a7918adbbd1289c6a1e",
                 "parameters": [
                     {
                         "name": "id",
@@ -292,7 +295,7 @@
                 ],
                 "summary": "Atualizar uma área existente",
                 "description": "Atualiza uma área existente",
-                "operationId": "56bfb71778faaf297d418afd709cc9bb",
+                "operationId": "db04ef95446077611754ed1efc8f11f5",
                 "parameters": [
                     {
                         "name": "id",
@@ -423,7 +426,7 @@
                 ],
                 "summary": "Lista de atendimentos",
                 "description": "Retorna a lista de atendimentos",
-                "operationId": "e26b4505ca2c999ff4bd9e86cbdc2e7e",
+                "operationId": "f89c7c9ba7b467f1ab9c0dac199e5bd6",
                 "responses": {
                     "200": {
                         "description": "Sucesso",
@@ -465,7 +468,7 @@
                 ],
                 "summary": "Criar um novo atendimento",
                 "description": "Cria um novo atendimento",
-                "operationId": "af8235d4d9daea32a9bb810585aaea14",
+                "operationId": "69cdc22719c0818ffdb73d461a11f498",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -546,8 +549,8 @@
                     "Atendimentos"
                 ],
                 "summary": "Detalhes de um atendimento especifico",
-                "description": "Retorna os detalhes de um atendimento específico",
-                "operationId": "ec919242f7b4136b5690197992c16c16",
+                "description": "Retorna os detalhes de um atendimento específico de acordo com o ID",
+                "operationId": "d9302d377c731873d910c5dfb64c9b24",
                 "parameters": [
                     {
                         "name": "id",
@@ -654,8 +657,8 @@
                     "Atendimentos"
                 ],
                 "summary": "Tomar posse de um atendimento",
-                "description": "Permite que um analista tome posse de um atendimento em andamento",
-                "operationId": "4dd2cf7c9c30348aefb2389d3be326ba",
+                "description": "Permite que um analista tome posse de um atendimento em andamento caso ele seja o responsavel pelo mesmo",
+                "operationId": "a7ca5d4f7cfcce731ee3c4e574315474",
                 "parameters": [
                     {
                         "name": "id",
@@ -715,7 +718,7 @@
                 ],
                 "summary": "Transferir um atendimento",
                 "description": "Permite que um atendente transfira um atendimento para outro analista",
-                "operationId": "6d6d8f26159cc0b961409601a24a19fe",
+                "operationId": "52acfabdd7a89fecd477b3ff7e009bd7",
                 "parameters": [
                     {
                         "name": "atendimentoId",
@@ -784,7 +787,7 @@
                 ],
                 "summary": "Completar um atendimento",
                 "description": "Permite que o analista responsável marque um atendimento como concluído",
-                "operationId": "5239166346d7afafb74efd340de6576a",
+                "operationId": "d539ecf608e2b8c47532aa6e368da81a",
                 "parameters": [
                     {
                         "name": "id",
@@ -1521,7 +1524,7 @@
                 ],
                 "summary": "Lista de clientes",
                 "description": "Retorna a lista de clientes",
-                "operationId": "de55d50d1b708d9e5c63ee3f8fe8f54a",
+                "operationId": "d5947949df359eb91889caae40e51b75",
                 "responses": {
                     "200": {
                         "description": "Sucesso",
@@ -1563,7 +1566,7 @@
                 ],
                 "summary": "Criar um novo cliente",
                 "description": "Cria um novo cliente",
-                "operationId": "469f4d88a1d27b95b61b0922e033d8f3",
+                "operationId": "4f61f083a4eb056855316a7d1f4c42c3",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1625,7 +1628,7 @@
                 ],
                 "summary": "Detalhes de um cliente específico",
                 "description": "Retorna os detalhes de um cliente específico",
-                "operationId": "813f501e73b90e51802f8a9400987353",
+                "operationId": "a1044d279ac3bae674ecdfcb57a22463",
                 "parameters": [
                     {
                         "name": "id",
@@ -1676,7 +1679,7 @@
                 ],
                 "summary": "Atualizar um cliente existente",
                 "description": "Atualiza um cliente existente",
-                "operationId": "6be039ccbab018c4c6a738085884af79",
+                "operationId": "09c1ebf398d0cab284651e04044fa09a",
                 "parameters": [
                     {
                         "name": "id",
