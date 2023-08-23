@@ -1410,6 +1410,9 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
                     }
                 },
                 "security": [
@@ -1426,7 +1429,18 @@
                 ],
                 "summary": "Obter Dados de um Determinado Usuario",
                 "description": "Retorna os dados de um determinado usuario pelo ID .",
-                "operationId": "657aa33dec3c63db7b18f0c4a40de469",
+                "operationId": "6587d2efb5d8ced81fc1dcb05803b236",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Sucesso",
@@ -1447,11 +1461,8 @@
                             }
                         }
                     },
-                    "401": {
-                        "description": "Não autorizado"
-                    },
-                    "403": {
-                        "description": "Somente o proprio usuario pode ver seu perfil"
+                    "404": {
+                        "description": "Usuario nao encontrado"
                     }
                 },
                 "security": [
@@ -1468,7 +1479,7 @@
                 ],
                 "summary": "Obter dados do usuario logado",
                 "description": "Retorna os dados do usuario que está atualmente logado",
-                "operationId": "51d35f87a8096075e952a5148010aa8e",
+                "operationId": "671f59744d7d9e611b6a2a0b9a2710ca",
                 "responses": {
                     "200": {
                         "description": "Sucesso",

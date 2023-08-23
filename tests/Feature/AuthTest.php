@@ -90,12 +90,12 @@ class AuthTest extends TestCase
     }
 
     /** @test */
-    public function test_user_can_get_own_profile()
+    public function test_user_can_get_profile_by_id()
     {
         $user = User::factory()->create();
         $token = auth()->login($user);
 
-        $response = $this->getJson(route('user.show', ['id' => $user->id]), [
+        $response = $this->getJson(route('user.getProfileById', ['id' => $user->id]), [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -110,30 +110,12 @@ class AuthTest extends TestCase
             ]);
     }
 
-    /** @test */
-    public function test_user_cannot_get_other_user_profile()
-    {
-        $user = User::factory()->create();
-        $otherUser = User::factory()->create();
-        $token = auth()->login($user);
-
-        $response = $this->getJson(route('user.show', ['id' => $otherUser->id]), [
-            'Authorization' => 'Bearer ' . $token,
-        ]);
-
-        $response->assertStatus(403)
-            ->assertJson([
-                'status' => 'error',
-                'message' => 'Unauthorized',
-            ]);
-    }
-
     public function test_user_can_get_own_info()
     {
         $user = User::factory()->create();
         $token = auth()->login($user);
 
-        $response = $this->getJson(route('user.getid'), [
+        $response = $this->getJson(route('user.getMyProfile'), [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -163,7 +145,7 @@ class AuthTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->getJson(route('user.show', ['id' => $user->id]));
+        $response = $this->getJson(route('user.getProfileById', ['id' => $user->id]));
 
         $response->assertStatus(401);
     }
@@ -171,7 +153,7 @@ class AuthTest extends TestCase
     /** @test */
     public function test_unauthenticated_user_cannot_get_own_info()
     {
-        $response = $this->getJson(route('user.getid'));
+        $response = $this->getJson(route('user.getMyProfile'));
 
         $response->assertStatus(401);
     }

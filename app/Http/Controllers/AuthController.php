@@ -89,7 +89,6 @@ class AuthController extends Controller
                 'type' => 'bearer',
             ]
         ])->withCookie(cookie('token', $token, 60 * 24 * 30));
-
     }
 
     /**
@@ -201,6 +200,10 @@ class AuthController extends Controller
      *             ),
      *         ),
      *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Não autorizado",
+     *     ),
      * )
      */
     public function refresh()
@@ -223,6 +226,13 @@ class AuthController extends Controller
      *     description="Retorna os dados de um determinado usuario pelo ID .",
      *     tags={"Autenticação"},
      *     security={{"jwt_token":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID do usuario",
+     *         @OA\Schema(type="integer"),
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Sucesso",
@@ -232,30 +242,27 @@ class AuthController extends Controller
      *         ),
      *     ),
      *     @OA\Response(
-     *         response=401,
-     *         description="Não autorizado",
-     *     ),
-     *     @OA\Response(
-     *         response=403,
-     *         description="Somente o proprio usuario pode ver seu perfil",
+     *         response=404,
+     *         description="Usuario nao encontrado",
      *     ),
      * 
      * )
      */
-    public function show($id)
+    public function getProfileById($id)
     {
-        if (Auth::id() == $id) {
-            $user = Auth::user();
-            return response()->json([
-                'status' => 'success',
-                'user' => $user,
-            ]);
-        } else {
+        $user = User::find($id);
+
+        if (!$user) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthorized',
-            ], 403);
+                'message' => 'User not found',
+            ], 404);
         }
+
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -284,7 +291,7 @@ class AuthController extends Controller
      * 
      * )
      */
-    public function getId()
+    public function getMyProfile()
     {
         $user = Auth::user();
         return response()->json([
