@@ -67,13 +67,20 @@ class AnalistaAreaController extends Controller
      *     ),
      *     @OA\Response(
      *         response=403,
-     *         description="Analista já esta associado com a área",
+     *         description="Analista já esta associado com a área | Usuario não é um analista (tipo suporte)",
      *     ),
      * )
      */
     public function associate($analistaId, $areaId)
     {   
         $analista = User::findOrFail($analistaId);
+
+        if ($analista->type != "suporte") {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Somente usuarios do tipo suporte podem ser associados com áreas',
+            ], 403);
+        }
 
         if ($analista->areas->contains($areaId)) {
             return response()->json([
@@ -92,9 +99,9 @@ class AnalistaAreaController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Delete(
      *     security={{"jwt_token":{}}},
-     *     path="/api/analista-areas/dissociate/{analistaId}/{areaId}",
+     *     path="/api/analistas/{analistaId}/areas/{areaId}",
      *     summary="Desassociar analista de área",
      *     description="Desassocia um analista de uma área específica.",
      *     operationId="dissociateAnalistaArea",

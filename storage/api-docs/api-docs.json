@@ -63,7 +63,7 @@
                         "description": "Analista ou área não encontrados"
                     },
                     "403": {
-                        "description": "Analista já esta associado com a área"
+                        "description": "Analista já esta associado com a área | Usuario não é um analista (tipo suporte)"
                     }
                 },
                 "security": [
@@ -71,10 +71,8 @@
                         "jwt_token": []
                     }
                 ]
-            }
-        },
-        "/api/analista-areas/dissociate/{analistaId}/{areaId}": {
-            "post": {
+            },
+            "delete": {
                 "tags": [
                     "Analista-Áreas"
                 ],
@@ -225,9 +223,6 @@
                     },
                     "401": {
                         "description": "Não autorizado"
-                    },
-                    "422": {
-                        "description": "Erro de validação"
                     }
                 },
                 "security": [
@@ -352,9 +347,6 @@
                     },
                     "404": {
                         "description": "Área não encontrada"
-                    },
-                    "422": {
-                        "description": "Erro de validação"
                     }
                 },
                 "security": [
