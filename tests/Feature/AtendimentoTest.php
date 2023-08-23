@@ -168,7 +168,7 @@ class AtendimentoTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'status' => 'success',
-                'message' => 'Analista associated with area successfully', // Ajuste a mensagem aqui
+                'message' => 'Analista associated with area successfully', 
             ]);
 
 

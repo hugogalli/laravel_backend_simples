@@ -122,7 +122,7 @@ class AuthController extends Controller
      *     ),
      *     @OA\Response(
      *         response=422,
-     *         description="Unprocessable Entity",
+     *         description="O tipo deve ser suporte, atendente ou gerente",
      *     ),
      * )
      */
