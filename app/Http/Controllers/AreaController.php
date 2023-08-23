@@ -53,7 +53,7 @@ class AreaController extends Controller
      *     ),
      * )
      */
-    public function index()
+    public function getTodos()
     {
         $areas = Area::all();
         return response()->json([
@@ -94,7 +94,7 @@ class AreaController extends Controller
      *     ),
      * )
      */
-    public function store(Request $request)
+    public function criarNovo(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -144,7 +144,7 @@ class AreaController extends Controller
      *     ),
      * )
      */
-    public function show($id)
+    public function getAreaById($id)
     {
         $area = Area::find($id);
         return response()->json([
@@ -196,7 +196,7 @@ class AreaController extends Controller
      *     ),
      * )
      */
-    public function update(Request $request, $id)
+    public function atualizarTitulo(Request $request, $id)
     {
         $request->validate([
             'title' => 'required|string|max:255',

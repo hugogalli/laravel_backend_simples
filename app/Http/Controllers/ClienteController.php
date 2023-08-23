@@ -52,7 +52,7 @@ class ClienteController extends Controller
      *     ),
      * )
      */
-    public function index()
+    public function getTodos()
     {
         $clientes = Cliente::all();
         return response()->json([
@@ -93,7 +93,7 @@ class ClienteController extends Controller
      *     ),
      * )
      */
-    public function store(Request $request)
+    public function criarNovo(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -143,7 +143,7 @@ class ClienteController extends Controller
      *     ),
      * )
      */
-    public function show($id)
+    public function getClienteById($id)
     {
         $cliente = Cliente::find($id);
         return response()->json([
@@ -190,7 +190,7 @@ class ClienteController extends Controller
      *     ),
      * )
      */
-    public function update(Request $request, $id)
+    public function atualizarTitulo(Request $request, $id)
     {
         $request->validate([
             'title' => 'required|string|max:255',

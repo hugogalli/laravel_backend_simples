@@ -18,7 +18,7 @@ class AreaTest extends TestCase
         $user = User::factory()->create();
         $token = auth()->login($user);
 
-        $response = $this->getJson(route('areas.index'), [
+        $response = $this->getJson(route('areas.getTodos'), [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -42,7 +42,7 @@ class AreaTest extends TestCase
             'title' => 'Test Area',
         ];
 
-        $response = $this->postJson(route('area.store'), $areaData, [
+        $response = $this->postJson(route('area.criarNovo'), $areaData, [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -68,7 +68,7 @@ class AreaTest extends TestCase
 
         $area = Area::factory()->create();
 
-        $response = $this->getJson(route('area.show', ['id' => $area->id]), [
+        $response = $this->getJson(route('area.getAreaById', ['id' => $area->id]), [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -93,7 +93,7 @@ class AreaTest extends TestCase
             'title' => 'Updated Area',
         ];
 
-        $response = $this->putJson(route('area.update', ['id' => $area->id]), $updatedData, [
+        $response = $this->putJson(route('area.atualizarTitulo', ['id' => $area->id]), $updatedData, [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -130,7 +130,7 @@ class AreaTest extends TestCase
 
     public function test_guest_cannot_get_list_of_areas()
     {
-        $response = $this->getJson(route('areas.index'));
+        $response = $this->getJson(route('areas.getTodos'));
 
         $response->assertStatus(401);
     }
@@ -141,7 +141,7 @@ class AreaTest extends TestCase
             'title' => 'New Area',
         ];
 
-        $response = $this->postJson(route('area.store'), $areaData);
+        $response = $this->postJson(route('area.criarNovo'), $areaData);
 
         $response->assertStatus(401);
     }
@@ -150,7 +150,7 @@ class AreaTest extends TestCase
     {
         $area = Area::factory()->create();
 
-        $response = $this->getJson(route('area.show', ['id' => $area->id]));
+        $response = $this->getJson(route('area.getAreaById', ['id' => $area->id]));
 
         $response->assertStatus(401);
     }
@@ -159,7 +159,7 @@ class AreaTest extends TestCase
     {
         $area = Area::factory()->create();
 
-        $response = $this->putJson(route('area.update', ['id' => $area->id]), [
+        $response = $this->putJson(route('area.atualizarTitulo', ['id' => $area->id]), [
             'title' => 'Updated Title',
             'description' => 'Updated Description',
         ]);

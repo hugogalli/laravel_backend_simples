@@ -20,28 +20,28 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::controller(ClienteController::class)->group(function () {
-    Route::get('clientes', 'index')->name('clientes.index');
-    Route::post('cliente', 'store')->name('cliente.store');
-    Route::get('cliente/{id}', 'show')->name('cliente.show');
-    Route::put('cliente/{id}', 'update')->name('cliente.update');
+    Route::get('clientes', 'getTodos')->name('clientes.getTodos');
+    Route::post('cliente', 'criarNovo')->name('cliente.criarNovo');
+    Route::get('cliente/{id}', 'getClienteById')->name('cliente.getClienteById');
+    Route::put('cliente/{id}', 'atualizarTitulo')->name('cliente.atualizarTitulo');
     Route::delete('cliente/{id}', 'destroy')->name('cliente.destroy');
 }); 
 
 Route::controller(AreaController::class)->group(function () {
-    Route::get('areas', 'index')->name('areas.index');
-    Route::post('area', 'store')->name('area.store');
-    Route::get('area/{id}', 'show')->name('area.show');
-    Route::put('area/{id}', 'update')->name('area.update');
+    Route::get('areas', 'getTodos')->name('areas.getTodos');
+    Route::post('area', 'criarNovo')->name('area.criarNovo');
+    Route::get('area/{id}', 'getAreaById')->name('area.getAreaById');
+    Route::put('area/{id}', 'atualizarTitulo')->name('area.atualizarTitulo');
     Route::delete('area/{id}', 'destroy')->name('area.destroy');
 }); 
 
 Route::controller(AtendimentoController::class)->group(function () {
-    Route::get('atendimentos', 'index')->name('atendimentos.index');
-    Route::post('atendimento', 'store')->name('atendimento.store');
-    Route::get('atendimento/{id}', 'show')->name('atendimento.show');
-    Route::put('atendimento/posse/{id}', 'posse')->name('atendimento.posse');
-    Route::put('atendimento/completar/{id}', 'completar')->name('atendimento.completar');
-    Route::put('atendimento/transferir/{atendimentoId}/analista/{analistaId}', 'transferir')->name('atendimento.transferir');
+    Route::get('atendimentos', 'getTodos')->name('atendimentos.getTodos');
+    Route::post('atendimento', 'criarNovo')->name('atendimento.criarNovo');
+    Route::get('atendimento/{id}', 'getAtendimentoById')->name('atendimento.getAtendimentoById');
+    Route::put('atendimento/posse/{id}', 'tomarPosse')->name('atendimento.tomarPosse');
+    Route::put('atendimento/completar/{id}', 'concluir')->name('atendimento.concluir');
+    Route::put('atendimento/transferir/{atendimentoId}/analista/{analistaId}', 'transferirPosse')->name('atendimento.transferirPosse');
     Route::delete('atendimento/{id}', 'destroy')->name('atendimento.destroy');
     Route::get('atendimentos/relatorios/clienteshoje', 'clientes')->name('atendimentos.relatorio.clienteshoje');
     Route::get('atendimentos/relatorios/analistashoje', 'analistas')->name('atendimentos.relatorio.analistashoje');

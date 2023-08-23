@@ -62,7 +62,7 @@ class AtendimentoController extends Controller
      *     ),
      * )
      */
-    public function index()
+    public function getTodos()
     {
         $atendimentos = Atendimento::join('users as criador', 'criador.id', 'atendimentos.user_id')
             ->join('clientes', 'clientes.id', 'atendimentos.cliente_id')
@@ -115,9 +115,8 @@ class AtendimentoController extends Controller
      *     ),
      * )
      */
-    public function store(Request $request)
+    public function criarNovo(Request $request)
     {
-        // Verificando se o usuário autenticado é um atendente
         if (Auth::user()->type != 'atendente') {
             return response()->json([
                 'status' => 'error',
@@ -157,7 +156,7 @@ class AtendimentoController extends Controller
      *     security={{"jwt_token":{}}},
      *     path="/api/atendimento/{id}",
      *     summary="Detalhes de um atendimento especifico",
-     *     description="Retorna os detalhes de um atendimento específico",
+     *     description="Retorna os detalhes de um atendimento específico de acordo com o ID",
      *     tags={"Atendimentos"},
      *     @OA\Parameter(
      *         name="id",
@@ -184,7 +183,7 @@ class AtendimentoController extends Controller
      *     ),
      * )
      */
-    public function show($id)
+    public function getAtendimentoById($id)
     {
         $atendimento = Atendimento::leftJoin('users as analista', 'analista.id', '=', 'atendimentos.analista_id')
             ->join('users as criador', 'criador.id', '=', 'atendimentos.user_id')
@@ -217,7 +216,7 @@ class AtendimentoController extends Controller
      *     security={{"jwt_token":{}}},
      *     path="/api/atendimento/posse/{id}",
      *     summary="Tomar posse de um atendimento",
-     *     description="Permite que um analista tome posse de um atendimento em andamento",
+     *     description="Permite que um analista tome posse de um atendimento em andamento caso ele seja o responsavel pelo mesmo",
      *     tags={"Atendimentos"},
      *     @OA\Parameter(
      *         name="id",
@@ -249,7 +248,7 @@ class AtendimentoController extends Controller
      *     ),
      * )
      */
-    public function posse($id)
+    public function tomarPosse($id)
     {
         // Verifique se o usuário autenticado é um analista
         if (Auth::user()->type != 'suporte') {
@@ -328,7 +327,7 @@ class AtendimentoController extends Controller
      *     ),
      * )
      */
-    public function transferir($atendimentoId, $analistaId)
+    public function transferirPosse($atendimentoId, $analistaId)
     {
         // Verifique se o usuário autenticado é um atendente
         if (Auth::user()->type != 'atendente') {
@@ -415,7 +414,7 @@ class AtendimentoController extends Controller
      * )
      */
 
-    public function completar(Request $request, $id)
+    public function concluir(Request $request, $id)
     {
         $atendimento = Atendimento::find($id);
         $analistaId = Auth::id();

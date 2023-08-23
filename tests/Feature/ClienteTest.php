@@ -18,7 +18,7 @@ class ClienteTest extends TestCase
         $user = User::factory()->create();
         $token = auth()->login($user);
 
-        $response = $this->getJson(route('clientes.index'), [
+        $response = $this->getJson(route('clientes.getTodos'), [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -41,7 +41,7 @@ class ClienteTest extends TestCase
             'title' => 'Test Cliente',
         ];
 
-        $response = $this->postJson(route('cliente.store'), $clienteData, [
+        $response = $this->postJson(route('cliente.criarNovo'), $clienteData, [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -67,7 +67,7 @@ class ClienteTest extends TestCase
 
         $cliente = Cliente::factory()->create();
 
-        $response = $this->getJson(route('cliente.show', ['id' => $cliente->id]), [
+        $response = $this->getJson(route('cliente.getClienteById', ['id' => $cliente->id]), [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -92,7 +92,7 @@ class ClienteTest extends TestCase
             'title' => 'Updated Cliente',
         ];
 
-        $response = $this->putJson(route('cliente.update', ['id' => $cliente->id]), $updatedData, [
+        $response = $this->putJson(route('cliente.atualizarTitulo', ['id' => $cliente->id]), $updatedData, [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -130,7 +130,7 @@ class ClienteTest extends TestCase
     /** @test */
     public function test_guest_cannot_get_list_of_clientes()
     {
-        $response = $this->getJson(route('clientes.index'));
+        $response = $this->getJson(route('clientes.getTodos'));
         $response->assertStatus(401);
     }
 
@@ -141,7 +141,7 @@ class ClienteTest extends TestCase
             'title' => 'New Cliente',
         ];
 
-        $response = $this->postJson(route('cliente.store'), $clienteData);
+        $response = $this->postJson(route('cliente.criarNovo'), $clienteData);
         $response->assertStatus(401);
     }
 
@@ -149,7 +149,7 @@ class ClienteTest extends TestCase
     public function test_guest_cannot_show_cliente()
     {
         $cliente = Cliente::factory()->create();
-        $response = $this->getJson(route('cliente.show', ['id' => $cliente->id]));
+        $response = $this->getJson(route('cliente.getClienteById', ['id' => $cliente->id]));
         $response->assertStatus(401);
     }
 
@@ -157,7 +157,7 @@ class ClienteTest extends TestCase
     public function test_guest_cannot_update_cliente()
     {
         $cliente = Cliente::factory()->create();
-        $response = $this->putJson(route('cliente.update', ['id' => $cliente->id]), [
+        $response = $this->putJson(route('cliente.atualizarTitulo', ['id' => $cliente->id]), [
             'title' => 'Updated Title',
         ]);
         $response->assertStatus(401);

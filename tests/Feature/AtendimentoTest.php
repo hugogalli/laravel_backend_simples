@@ -21,7 +21,7 @@ class AtendimentoTest extends TestCase
 
         // Criar alguns atendimentos para testar
 
-        $response = $this->getJson(route('atendimentos.index'), [
+        $response = $this->getJson(route('atendimentos.getTodos'), [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -52,7 +52,7 @@ class AtendimentoTest extends TestCase
             'area_id' => $area->id,
         ];
 
-        $response = $this->postJson(route('atendimento.store'), $atendimentoData, [
+        $response = $this->postJson(route('atendimento.criarNovo'), $atendimentoData, [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -118,7 +118,7 @@ class AtendimentoTest extends TestCase
             'area_id' => $area->id,
         ];
 
-        $response = $this->postJson(route('atendimento.store'), $atendimentoData, [
+        $response = $this->postJson(route('atendimento.criarNovo'), $atendimentoData, [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -133,7 +133,7 @@ class AtendimentoTest extends TestCase
 
         $atendimento = Atendimento::factory()->create();
 
-        $response = $this->getJson(route('atendimento.show', ['id' => $atendimento->id]), [
+        $response = $this->getJson(route('atendimento.getAtendimentoById', ['id' => $atendimento->id]), [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -174,7 +174,7 @@ class AtendimentoTest extends TestCase
 
         $atendimento = Atendimento::factory()->create(['area_id' => $area->id]);
 
-        $response = $this->putJson(route('atendimento.posse', ['id' => $atendimento->id]), [], [
+        $response = $this->putJson(route('atendimento.tomarPosse', ['id' => $atendimento->id]), [], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -198,7 +198,7 @@ class AtendimentoTest extends TestCase
         $area = Area::factory()->create();
         $atendimento = Atendimento::factory()->create(['area_id' => $area->id]);
 
-        $response = $this->putJson(route('atendimento.posse', ['id' => $atendimento->id]), [], [
+        $response = $this->putJson(route('atendimento.tomarPosse', ['id' => $atendimento->id]), [], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -230,7 +230,7 @@ class AtendimentoTest extends TestCase
 
         $atendimento = Atendimento::factory()->create(['area_id' => $area->id]);
 
-        $response = $this->putJson(route('atendimento.posse', ['id' => $atendimento->id]), [], [
+        $response = $this->putJson(route('atendimento.tomarPosse', ['id' => $atendimento->id]), [], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -261,7 +261,7 @@ class AtendimentoTest extends TestCase
 
         $atendimento = Atendimento::factory()->create(['area_id' => $area->id]);
 
-        $response = $this->putJson(route('atendimento.posse', ['id' => $atendimento->id]), [], [
+        $response = $this->putJson(route('atendimento.tomarPosse', ['id' => $atendimento->id]), [], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -293,7 +293,7 @@ class AtendimentoTest extends TestCase
 
         $atendimento = Atendimento::factory()->create(['area_id' => $area->id]);
 
-        $response = $this->putJson(route('atendimento.transferir', ['atendimentoId' => $atendimento->id, 'analistaId' => $suporteUser->id]), [], [
+        $response = $this->putJson(route('atendimento.transferirPosse', ['atendimentoId' => $atendimento->id, 'analistaId' => $suporteUser->id]), [], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -330,7 +330,7 @@ class AtendimentoTest extends TestCase
 
         $atendimento = Atendimento::factory()->create(['area_id' => $area->id]);
 
-        $response = $this->putJson(route('atendimento.transferir', ['atendimentoId' => $atendimento->id, 'analistaId' => $suporteUser->id]), [], [
+        $response = $this->putJson(route('atendimento.transferirPosse', ['atendimentoId' => $atendimento->id, 'analistaId' => $suporteUser->id]), [], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -362,7 +362,7 @@ class AtendimentoTest extends TestCase
 
         $atendimento = Atendimento::factory()->create(['area_id' => $area->id]);
 
-        $response = $this->putJson(route('atendimento.transferir', ['atendimentoId' => $atendimento->id, 'analistaId' => $suporteUser->id]), [], [
+        $response = $this->putJson(route('atendimento.transferirPosse', ['atendimentoId' => $atendimento->id, 'analistaId' => $suporteUser->id]), [], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -381,7 +381,7 @@ class AtendimentoTest extends TestCase
         $suporteUser = User::factory()->create(['type' => 'suporte']);
         $atendimento = Atendimento::factory()->create();
 
-        $response = $this->putJson(route('atendimento.transferir', ['atendimentoId' => $atendimento->id, 'analistaId' => $suporteUser->id]), [], [
+        $response = $this->putJson(route('atendimento.transferirPosse', ['atendimentoId' => $atendimento->id, 'analistaId' => $suporteUser->id]), [], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -403,7 +403,7 @@ class AtendimentoTest extends TestCase
 
         $infoAdicional = 'Informações adicionais para o atendimento concluído';
 
-        $response = $this->putJson(route('atendimento.completar', ['id' => $atendimento->id]), ['info_adicional' => $infoAdicional], [
+        $response = $this->putJson(route('atendimento.concluir', ['id' => $atendimento->id]), ['info_adicional' => $infoAdicional], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -427,7 +427,7 @@ class AtendimentoTest extends TestCase
 
         $infoAdicional = 'Informações adicionais para o atendimento concluído';
 
-        $response = $this->putJson(route('atendimento.completar', ['id' => $atendimento->id]), ['info_adicional' => $infoAdicional], [
+        $response = $this->putJson(route('atendimento.concluir', ['id' => $atendimento->id]), ['info_adicional' => $infoAdicional], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -447,7 +447,7 @@ class AtendimentoTest extends TestCase
 
         $infoAdicional = 'Informações adicionais para o atendimento concluído';
 
-        $response = $this->putJson(route('atendimento.completar', ['id' => $atendimento->id]), ['info_adicional' => $infoAdicional], [
+        $response = $this->putJson(route('atendimento.concluir', ['id' => $atendimento->id]), ['info_adicional' => $infoAdicional], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -467,7 +467,7 @@ class AtendimentoTest extends TestCase
 
         $infoAdicional = 'Informações adicionais para o atendimento concluído';
 
-        $response = $this->putJson(route('atendimento.completar', ['id' => $atendimento->id]), ['info_adicional' => $infoAdicional], [
+        $response = $this->putJson(route('atendimento.concluir', ['id' => $atendimento->id]), ['info_adicional' => $infoAdicional], [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -507,7 +507,7 @@ class AtendimentoTest extends TestCase
         $user = User::factory()->create();
         $token = auth()->login($user);
 
-        $response = $this->getJson(route('atendimento.show', ['id' => 9999999999]), [
+        $response = $this->getJson(route('atendimento.getAtendimentoById', ['id' => 9999999999]), [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -818,7 +818,7 @@ class AtendimentoTest extends TestCase
             'area_id' => $area->id,
         ];
 
-        $response = $this->postJson(route('atendimento.store'), $atendimentoData, [
+        $response = $this->postJson(route('atendimento.criarNovo'), $atendimentoData, [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -847,7 +847,7 @@ class AtendimentoTest extends TestCase
             'area_id' => $area->id,
         ];
 
-        $response = $this->postJson(route('atendimento.store'), $atendimentoData, [
+        $response = $this->postJson(route('atendimento.criarNovo'), $atendimentoData, [
             'Authorization' => 'Bearer ' . $token,
         ]);
 
@@ -919,7 +919,7 @@ class AtendimentoTest extends TestCase
         $analistaId = 1; 
 
         $getRoutesWithoutParameters = [
-            'atendimentos.index',
+            'atendimentos.getTodos',
             'atendimentos.relatorio.clienteshoje',
             'atendimentos.relatorio.analistashoje',
             'atendimentos.relatorio.areashoje',
@@ -934,17 +934,17 @@ class AtendimentoTest extends TestCase
         }
 
         // Outros casos
-        $response = $this->getJson(route('atendimento.show', [$atendimentoId]));
+        $response = $this->getJson(route('atendimento.getAtendimentoById', [$atendimentoId]));
         $response->assertStatus(401);
 
-        $response = $this->putJson(route('atendimento.posse', [$atendimentoId]));
+        $response = $this->putJson(route('atendimento.tomarPosse', [$atendimentoId]));
         $response->assertStatus(401);
 
-        $response = $this->putJson(route('atendimento.completar', [$atendimentoId]));
+        $response = $this->putJson(route('atendimento.concluir', [$atendimentoId]));
         $response->assertStatus(401);
 
 
-        $response = $this->putJson(route('atendimento.transferir', [$atendimentoId, $analistaId]));
+        $response = $this->putJson(route('atendimento.transferirPosse', [$atendimentoId, $analistaId]));
         $response->assertStatus(401);
     }
 }
