@@ -65,13 +65,24 @@ class AnalistaAreaController extends Controller
      *         response=404,
      *         description="Analista ou área não encontrados",
      *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Analista já esta associado com a área",
+     *     ),
      * )
      */
     public function associate($analistaId, $areaId)
-    {
+    {   
         $analista = User::findOrFail($analistaId);
-        $area = Area::findOrFail($areaId);
 
+        if ($analista->areas->contains($areaId)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Analista já esta associado com a área',
+            ], 403);
+        }
+        
+        $area = Area::findOrFail($areaId);
         $analista->areas()->attach($area);
 
         return response()->json([

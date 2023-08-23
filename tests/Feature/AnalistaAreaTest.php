@@ -57,8 +57,30 @@ class AnalistaAreaTest extends TestCase
         $this->assertFalse($analista->areas->contains($area));
     }
 
+    public function test_duplicate_association()
+    {
+        $analista = User::factory()->create();
+        $token = auth()->login($analista);
+        $area = Area::factory()->create();
+
+        $analista->areas()->attach($area);
+
+        $response = $this->postJson(
+            route('analista.associate', ['analistaId' => $analista->id, 'areaId' => $area->id]),
+            [],
+            ['Authorization' => 'Bearer ' . $token]
+        );
+
+        $response->assertStatus(403);
+
+        $response->assertJson([
+            'status' => 'error',
+            'message' => 'Analista já esta associado com a área',
+        ]);
+    }
+
     // casos de usuario nao autenticado
-    
+
     /** @test */
     public function test_guest_cannot_associate_analista_with_area()
     {
