@@ -19,7 +19,7 @@ return [
         //
         // Example:
         //
-        // 'group_attributes' => ['guard' => 'api']
+        //'group_attributes' => ['guard' => 'auth:api']
         //
         'group_attributes' => [],
     ],
@@ -75,26 +75,47 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                // ExampleQuery::class,
                 'areas' => \App\GraphQL\Queries\Area\AreasQuery::class,
                 'area' => \App\GraphQL\Queries\Area\AreaQuery::class,
             ],
             'mutation' => [
                 // ExampleMutation::class,
+                'createArea' => \App\GraphQL\Mutations\Area\CreateAreaMutation::class,
+                'updateArea' => \App\GraphQL\Mutations\Area\UpdateAreaMutation::class,
+                'deleteArea' => \App\GraphQL\Mutations\Area\DeleteAreaMutation::class,                
             ],
             // The types only available in this schema
             'types' => [
                 // ExampleType::class,
-                'Area' => App\GraphQL\Types\AreaType::class,
+                
             ],
 
             // Laravel HTTP middleware
-            'middleware' => null,
+
+            'middleware' => ['auth:api'],
+            //'middleware' => null,
 
             // Which HTTP methods to support; must be given in UPPERCASE!
             'method' => ['GET', 'POST'],
 
             // An array of middlewares, overrides the global ones
+            'execution_middleware' => null,
+        ],  
+
+        //TODO: CRIAR MUTATION DE LOGIN E TESTAR USANDO http://localhost:8000/graphql/auth?query={}
+        'auth' => [
+            'query' => [
+            ],
+            'mutation' => [
+                'login' => \App\GraphQL\Mutations\Auth\LoginMutation::class,
+                'register' => \App\GraphQL\Mutations\Auth\RegisterMutation::class,
+            ],
+            'types' => [
+                
+            ],
+
+            'middleware' => [],
+            'method' => ['GET', 'POST'],
             'execution_middleware' => null,
         ],
     ],
@@ -112,6 +133,8 @@ return [
         // ExampleType::class,
         // ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,
+        'Area' => App\GraphQL\Types\AreaType::class,
+        'User' => App\GraphQL\Types\UserType::class,
     ],
 
     // This callable will be passed the Error object for each errors GraphQL catch.

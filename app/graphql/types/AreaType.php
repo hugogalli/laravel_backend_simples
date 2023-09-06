@@ -25,6 +25,14 @@ class AreaType extends GraphQLType
             'title' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Title of the area'
+            ],
+            'analistas' => [
+                'type' => Type::listOf(GraphQL::type('User')), // Tipo de usuário que você definiu
+                'description' => 'List of users (analistas) associated with this area',
+                'resolve' => function ($area) {
+                    // Acessar a relação "analistas" da área
+                    return $area->analistas;
+                },
             ]
         ];
     }

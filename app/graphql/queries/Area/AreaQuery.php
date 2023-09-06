@@ -28,12 +28,7 @@ class AreaQuery extends Query
             ]
         ];
     }
-
-    public function authenticated($root, $args, $currentUser)
-    {
-        return !!$currentUser;
-    }
-
+    
     public function resolve($root, $args)
     {
         return Area::findOrFail($args['id']);
