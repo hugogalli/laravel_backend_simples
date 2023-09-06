@@ -77,6 +77,9 @@ return [
             'query' => [
                 'areas' => \App\GraphQL\Queries\Area\AreasQuery::class,
                 'area' => \App\GraphQL\Queries\Area\AreaQuery::class,
+
+                'users' => \App\GraphQL\Queries\User\UsersQuery::class,
+                'user' => \App\GraphQL\Queries\User\UserQuery::class,
             ],
             'mutation' => [
                 // ExampleMutation::class,
@@ -102,7 +105,14 @@ return [
             'execution_middleware' => null,
         ],  
 
-        //TODO: CRIAR MUTATION DE LOGIN E TESTAR USANDO http://localhost:8000/graphql/auth?query={}
+        //CRIAR MUTATION DE LOGIN E REGISTER USANDO http://localhost:8000/graphql/auth?query=mutation{login(email:"atendente@gmail.com",password:"teste123")}
+        //COLOCAR O TOKEN NO CABECALHO COM 
+        /*
+         
+  {"Authorization": "Bearer TOKEN_AQUI"}
+
+         */
+
         'auth' => [
             'query' => [
             ],

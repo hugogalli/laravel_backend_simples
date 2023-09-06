@@ -34,6 +34,14 @@ class UserType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'O tipo do usuário dentro do banco de dados'
             ],
+            'areas' => [
+                'type' => Type::listOf(GraphQL::type('Area')), // Tipo de usuário que você definiu
+                'description' => 'List of areas associated with this user',
+                'resolve' => function ($analista) {
+                    // Acessar a relação "areas" da área
+                    return $analista->areas;
+                },
+            ]
         ];
     }
 }
