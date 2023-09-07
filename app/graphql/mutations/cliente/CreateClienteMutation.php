@@ -1,22 +1,22 @@
 <?php
 
-namespace App\GraphQL\Mutations\Area;
+namespace App\GraphQL\Mutations\Cliente;
 
-use App\Models\Area;
+use App\Models\Cliente;
 use Rebing\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 
-class CreateAreaMutation extends Mutation
+class CreateClienteMutation extends Mutation
 {
     protected $attributes = [
-        'name' => 'createArea',
-        'description' => 'Creates a new Area'
+        'name' => 'createCliente',
+        'description' => 'Creates a new Cliente'
     ];
 
     public function type(): Type
     {
-        return GraphQL::type('Area');
+        return GraphQL::type('Cliente');
     }
 
     public function args(): array
@@ -31,10 +31,10 @@ class CreateAreaMutation extends Mutation
 
     public function resolve($root, $args)
     {
-        $area = new Area();
-        $area->fill($args);
-        $area->save();
+        $cliente = new Cliente();
+        $cliente->fill($args);
+        $cliente->save();
 
-        return $area;
+        return $cliente;
     }
 }

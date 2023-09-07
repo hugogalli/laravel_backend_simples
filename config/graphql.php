@@ -75,17 +75,29 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'areas' => \App\GraphQL\Queries\Area\AreasQuery::class,
-                'area' => \App\GraphQL\Queries\Area\AreaQuery::class,
-
                 'users' => \App\GraphQL\Queries\User\UsersQuery::class,
                 'user' => \App\GraphQL\Queries\User\UserQuery::class,
+
+                'areas' => \App\GraphQL\Queries\Area\AreasQuery::class,
+                'area' => \App\GraphQL\Queries\Area\AreaQuery::class,
+                
+                'clientes' => \App\GraphQL\Queries\Cliente\ClientesQuery::class,
+                'cliente' => \App\GraphQL\Queries\Cliente\ClienteQuery::class,
+
+                'atendimentos' => \App\GraphQL\Queries\Atendimento\AtendimentosQuery::class,
+                'atendimento' => \App\GraphQL\Queries\Atendimento\AtendimentoQuery::class,
+
+
             ],
             'mutation' => [
                 // ExampleMutation::class,
                 'createArea' => \App\GraphQL\Mutations\Area\CreateAreaMutation::class,
                 'updateArea' => \App\GraphQL\Mutations\Area\UpdateAreaMutation::class,
-                'deleteArea' => \App\GraphQL\Mutations\Area\DeleteAreaMutation::class,                
+                'deleteArea' => \App\GraphQL\Mutations\Area\DeleteAreaMutation::class,   
+
+                'createCliente' => \App\GraphQL\Mutations\Cliente\CreateClienteMutation::class,
+                'updateCliente' => \App\GraphQL\Mutations\Cliente\UpdateClienteMutation::class,
+                'deleteCliente' => \App\GraphQL\Mutations\Cliente\DeleteClienteMutation::class,                
             ],
             // The types only available in this schema
             'types' => [
@@ -143,8 +155,10 @@ return [
         // ExampleType::class,
         // ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,
-        'Area' => App\GraphQL\Types\AreaType::class,
         'User' => App\GraphQL\Types\UserType::class,
+        'Area' => App\GraphQL\Types\AreaType::class,
+        'Cliente' => App\GraphQL\Types\ClienteType::class,
+        'Atendimento' => App\GraphQL\Types\AtendimentoType::class,
     ],
 
     // This callable will be passed the Error object for each errors GraphQL catch.
