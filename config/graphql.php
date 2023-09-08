@@ -100,8 +100,15 @@ return [
                 'deleteCliente' => \App\GraphQL\Mutations\Cliente\DeleteClienteMutation::class,         
 
                 'associateArea' => \App\GraphQL\Mutations\ConnectAreaAnalista\AssociateAreaMutation::class,                
-                'dissociateArea' => \App\GraphQL\Mutations\ConnectAreaAnalista\DissociateAreaMutation::class,                
+                'dissociateArea' => \App\GraphQL\Mutations\ConnectAreaAnalista\DissociateAreaMutation::class,   
+                
+                'createAtendimento' => \App\GraphQL\Mutations\Atendimento\CreateAtendimentoMutation::class,
+                'deleteAtendimento' => \App\GraphQL\Mutations\Atendimento\DeleteAtendimentoMutation::class,
+                'tomarPosse' => \App\GraphQL\Mutations\Atendimento\TomarPosseMutation::class,
+                'transferirPosse' => \App\GraphQL\Mutations\Atendimento\TransferirPosseMutation::class,
+                'concluirAtendimento' => \App\GraphQL\Mutations\Atendimento\ConcluirAtendimentoMutation::class,
             ],
+
             // The types only available in this schema
             'types' => [
                 // ExampleType::class,
