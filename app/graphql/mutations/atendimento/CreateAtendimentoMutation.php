@@ -58,6 +58,10 @@ class CreateAtendimentoMutation extends Mutation
 
     public function resolve($root, $args)
     {
+        if (Auth::user()->type != 'atendente') {
+            return 'Apenas atendentes podem criar novos atendimentos.';
+        }
+
         $atendimento = new Atendimento();
         $atendimento->fill($args);
 
