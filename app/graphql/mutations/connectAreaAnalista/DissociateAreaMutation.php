@@ -11,7 +11,7 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
 class DissociateAreaMutation extends Mutation
 {
     protected $attributes = [
-        'name' => 'associateArea',
+        'name' => 'dissociateArea',
         'description' => 'Remove o vinculo de um analista a uma area'
     ];
 
