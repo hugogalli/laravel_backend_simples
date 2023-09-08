@@ -97,7 +97,10 @@ return [
 
                 'createCliente' => \App\GraphQL\Mutations\Cliente\CreateClienteMutation::class,
                 'updateCliente' => \App\GraphQL\Mutations\Cliente\UpdateClienteMutation::class,
-                'deleteCliente' => \App\GraphQL\Mutations\Cliente\DeleteClienteMutation::class,                
+                'deleteCliente' => \App\GraphQL\Mutations\Cliente\DeleteClienteMutation::class,         
+
+                'associateArea' => \App\GraphQL\Mutations\ConnectAreaAnalista\AssociateAreaMutation::class,                
+                'dissociateArea' => \App\GraphQL\Mutations\ConnectAreaAnalista\DissociateAreaMutation::class,                
             ],
             // The types only available in this schema
             'types' => [
