@@ -22,6 +22,9 @@ class AtendimentoFactory extends Factory
      */
     public function definition(): array
     {
+        $clienteIds = Cliente::pluck('id')->toArray();
+        $areaIds = Area::pluck('id')->toArray();
+
         return [
             'title' => $this->faker->word,
             'tipo' => $this->faker->randomElement(['problema', 'duvida', 'solicitacao']),
@@ -29,8 +32,8 @@ class AtendimentoFactory extends Factory
             'user_id' => User::factory(),
             'pessoa' => $this->faker->name,
             'status' => 'pendente',
-            'cliente_id' => Cliente::factory(),
-            'area_id' => Area::factory(),
+            'cliente_id' => $this->faker->randomElement($clienteIds),
+            'area_id' => $this->faker->randomElement($areaIds),
             'analista_id' => null,
             'info_adicional' => null,
             'created_at' => Carbon::now(),

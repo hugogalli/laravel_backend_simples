@@ -86,7 +86,13 @@ return [
 
                 'atendimentos' => \App\GraphQL\Queries\Atendimento\AtendimentosQuery::class,
                 'atendimento' => \App\GraphQL\Queries\Atendimento\AtendimentoQuery::class,
-
+                
+                //Relatorios
+                'clienteRelatorio' => \App\GraphQL\Queries\Relatorio\ClienteRelatorioQuery::class,
+                'areaRelatorio' => \App\GraphQL\Queries\Relatorio\AreaRelatorioQuery::class,
+                'analistaRelatorio' => \App\GraphQL\Queries\Relatorio\AnalistaRelatorioQuery::class,
+                'tipoAtendimentoRelatorio' => \App\GraphQL\Queries\Relatorio\TipoAtendimentoRelatorioQuery::class,
+                'atendimentosPendentesRelatorio' => \App\GraphQL\Queries\Relatorio\AtendimentosPendentesRelatorioQuery::class,
 
             ],
             'mutation' => [
@@ -169,6 +175,13 @@ return [
         'Area' => App\GraphQL\Types\AreaType::class,
         'Cliente' => App\GraphQL\Types\ClienteType::class,
         'Atendimento' => App\GraphQL\Types\AtendimentoType::class,
+        
+        //Relatorios
+        'ClienteRelatorio' => App\GraphQL\Types\ClienteRelatorioType::class,
+        'AreaRelatorio' => App\GraphQL\Types\AreaRelatorioType::class,
+        'AnalistaRelatorio' => App\GraphQL\Types\AnalistaRelatorioType::class,
+        'TipoAtendimentoRelatorio' => App\GraphQL\Types\TipoAtendimentoRelatorioType::class,
+
     ],
 
     // This callable will be passed the Error object for each errors GraphQL catch.
