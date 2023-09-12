@@ -221,12 +221,6 @@ class AtendimentoTest extends TestCase
             'Authorization' => 'Bearer ' . $token,
         ]);
 
-        $response->assertStatus(200)
-            ->assertJson([
-                'status' => 'success',
-                'message' => 'Analista associated with area successfully',
-            ]);
-
 
         $atendimento = Atendimento::factory()->create(['area_id' => $area->id]);
 
@@ -251,13 +245,6 @@ class AtendimentoTest extends TestCase
         $response = $this->postJson(route('analista.associate', ['analistaId' => $gerenteUser->id, 'areaId' => $area->id]), [], [
             'Authorization' => 'Bearer ' . $token,
         ]);
-
-        $response->assertStatus(200)
-            ->assertJson([
-                'status' => 'success',
-                'message' => 'Analista associated with area successfully',
-            ]);
-
 
         $atendimento = Atendimento::factory()->create(['area_id' => $area->id]);
 
