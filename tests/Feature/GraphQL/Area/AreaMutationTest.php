@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\GraphQL;
+namespace Tests\Feature\GraphQL\Area;
 
 use App\Models\Area;
 use App\Models\Atendimento;
@@ -10,17 +10,19 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+//use Faker\Factory as FakerFactory;
 
 class AreaMutationTest extends TestCase
 {
-    public function testUserCanCreateNewAtendimento()
-    {   
-        $user = User::factory()->create(['type' => 'atendente']);
+    use RefreshDatabase;
+
+    public function testUserCanCreateNewArea()
+    {
+        $user = User::factory()->create();
         $token = auth()->login($user);
 
         // Dados para a nova area
-        $title = 'Título do Atendimento';
-
+        $title = 'Titulo Teste';
 
         // Consulta do GraphQL para criar um novo atendimento
         $query = '
@@ -37,7 +39,9 @@ class AreaMutationTest extends TestCase
         ];
 
         // Realize a consulta GraphQL com as variáveis
-        $response = $this->postJson('/graphql', [
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->postJson('/graphql', [
             'query' => $query,
             'variables' => $variables,
         ]);

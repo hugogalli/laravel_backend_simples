@@ -48,7 +48,7 @@ class LoginMutation extends Mutation
         $token = auth()->attempt($credentials);
 
         if (!$token) {
-            throw new \Exception('Unauthorized!');
+            throw new \Exception('Dados Incorretos!');
         }
 
         return $token;

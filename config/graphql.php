@@ -80,13 +80,13 @@ return [
 
                 'areas' => \App\GraphQL\Queries\Area\AreasQuery::class,
                 'area' => \App\GraphQL\Queries\Area\AreaQuery::class,
-                
+
                 'clientes' => \App\GraphQL\Queries\Cliente\ClientesQuery::class,
                 'cliente' => \App\GraphQL\Queries\Cliente\ClienteQuery::class,
 
                 'atendimentos' => \App\GraphQL\Queries\Atendimento\AtendimentosQuery::class,
                 'atendimento' => \App\GraphQL\Queries\Atendimento\AtendimentoQuery::class,
-                
+
                 //Relatorios
                 'clienteRelatorio' => \App\GraphQL\Queries\Relatorio\ClienteRelatorioQuery::class,
                 'areaRelatorio' => \App\GraphQL\Queries\Relatorio\AreaRelatorioQuery::class,
@@ -99,15 +99,15 @@ return [
                 // ExampleMutation::class,
                 'createArea' => \App\GraphQL\Mutations\Area\CreateAreaMutation::class,
                 'updateArea' => \App\GraphQL\Mutations\Area\UpdateAreaMutation::class,
-                'deleteArea' => \App\GraphQL\Mutations\Area\DeleteAreaMutation::class,   
+                'deleteArea' => \App\GraphQL\Mutations\Area\DeleteAreaMutation::class,
 
                 'createCliente' => \App\GraphQL\Mutations\Cliente\CreateClienteMutation::class,
                 'updateCliente' => \App\GraphQL\Mutations\Cliente\UpdateClienteMutation::class,
-                'deleteCliente' => \App\GraphQL\Mutations\Cliente\DeleteClienteMutation::class,         
+                'deleteCliente' => \App\GraphQL\Mutations\Cliente\DeleteClienteMutation::class,
 
-                'associateArea' => \App\GraphQL\Mutations\ConnectAreaAnalista\AssociateAreaMutation::class,                
-                'dissociateArea' => \App\GraphQL\Mutations\ConnectAreaAnalista\DissociateAreaMutation::class,   
-                
+                'associateArea' => \App\GraphQL\Mutations\ConnectAreaAnalista\AssociateAreaMutation::class,
+                'dissociateArea' => \App\GraphQL\Mutations\ConnectAreaAnalista\DissociateAreaMutation::class,
+
                 'createAtendimento' => \App\GraphQL\Mutations\Atendimento\CreateAtendimentoMutation::class,
                 'deleteAtendimento' => \App\GraphQL\Mutations\Atendimento\DeleteAtendimentoMutation::class,
                 'tomarPosse' => \App\GraphQL\Mutations\Atendimento\TomarPosseMutation::class,
@@ -118,25 +118,25 @@ return [
             // The types only available in this schema
             'types' => [
                 // ExampleType::class,
-                
+
             ],
 
             // Laravel HTTP middleware
 
-            //'middleware' => ['auth:api'],
-            'middleware' => null,
+            'middleware' => ['auth:api'],
+            //'middleware' => null,
 
             // Which HTTP methods to support; must be given in UPPERCASE!
             'method' => ['GET', 'POST'],
 
             // An array of middlewares, overrides the global ones
             'execution_middleware' => null,
-        ],  
+        ],
 
         //CRIAR MUTATION DE LOGIN E REGISTER USANDO http://localhost:8000/graphql/auth?query=mutation{login(email:"atendente@gmail.com",password:"teste123")}
-        //COLOCAR O TOKEN NO CABECALHO COM 
+        //COLOCAR O TOKEN NO CABECALHO COM
         /*
-         
+
   {"Authorization": "Bearer TOKEN_AQUI"}
 
          */
@@ -149,7 +149,7 @@ return [
                 'register' => \App\GraphQL\Mutations\Auth\RegisterMutation::class,
             ],
             'types' => [
-                
+
             ],
 
             'middleware' => [],
@@ -175,7 +175,7 @@ return [
         'Area' => App\GraphQL\Types\AreaType::class,
         'Cliente' => App\GraphQL\Types\ClienteType::class,
         'Atendimento' => App\GraphQL\Types\AtendimentoType::class,
-        
+
         //Relatorios
         'ClienteRelatorio' => App\GraphQL\Types\ClienteRelatorioType::class,
         'AreaRelatorio' => App\GraphQL\Types\AreaRelatorioType::class,
