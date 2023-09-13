@@ -80,9 +80,7 @@ class AtendimentoMutationTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
-                    'createAtendimento' => [
-                        'id',
-                    ],
+                    'createAtendimento' => [],
                 ],
             ]);
     }

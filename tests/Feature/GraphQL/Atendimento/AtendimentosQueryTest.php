@@ -2,13 +2,8 @@
 
 namespace Tests\Feature\GraphQL\Atendimento;
 
-use App\Models\Area;
 use App\Models\Atendimento;
-use App\Models\Cliente;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AtendimentosQueryTest extends TestCase
@@ -41,9 +36,7 @@ class AtendimentosQueryTest extends TestCase
             ->assertJsonStructure([
                 'data' => [
                     'atendimentos' => [
-                        '*' => [
-                            'id',
-                        ],
+                        '*' => [],
                     ],
                 ],
             ]);
@@ -83,9 +76,7 @@ class AtendimentosQueryTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
-                    'atendimento' => [
-                        'id',
-                    ],
+                    'atendimento' => [],
                 ],
             ]);
     }

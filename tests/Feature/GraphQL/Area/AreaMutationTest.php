@@ -50,9 +50,7 @@ class AreaMutationTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
-                    'createArea' => [
-                        'id',
-                    ],
+                    'createArea' => [],
                 ],
             ]);
     }

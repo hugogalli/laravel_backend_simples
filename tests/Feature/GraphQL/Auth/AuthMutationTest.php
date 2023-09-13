@@ -2,20 +2,12 @@
 
 namespace Tests\Feature\GraphQL\Auth;
 
-use App\Models\Area;
-use App\Models\Atendimento;
-use App\Models\Cliente;
-use App\Models\User;
-use Carbon\Carbon;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-//use Faker\Factory as FakerFactory;
 
 class AuthMutationTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testGuestCanRegister()
     {
         // Dados para registro
