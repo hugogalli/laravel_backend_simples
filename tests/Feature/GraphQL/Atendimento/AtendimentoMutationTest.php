@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\GraphQL\Area;
+namespace Tests\Feature\GraphQL\Atendimento;
 
 use App\Models\Area;
 use App\Models\Atendimento;
@@ -53,7 +53,7 @@ class AtendimentoMutationTest extends TestCase
                 cliente_id: $cliente_id
                 area_id: $area_id
                 ) {
-                id
+                title
             }
         }
         ';
@@ -77,12 +77,7 @@ class AtendimentoMutationTest extends TestCase
         ]);
 
         // Verifique a resposta da consulta
-        $response->assertStatus(200)
-            ->assertJsonStructure([
-                'data' => [
-                    'createAtendimento' => [],
-                ],
-            ]);
+        $response->assertJsonFragment(['title' => 'Titulo Teste']);
     }
 
     public function testUserCanDeleteAtendimento()
