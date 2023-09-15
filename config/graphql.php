@@ -123,8 +123,8 @@ return [
 
             // Laravel HTTP middleware
 
-            //'middleware' => ['auth:api'],
-            'middleware' => null,
+            'middleware' => ['auth:api'],
+            //'middleware' => null,
 
             // Which HTTP methods to support; must be given in UPPERCASE!
             'method' => ['GET', 'POST'],

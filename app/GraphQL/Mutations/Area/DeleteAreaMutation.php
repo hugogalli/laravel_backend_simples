@@ -1,6 +1,6 @@
 <?php
 
-// app/graphql/mutations/Area/DeleteAreaMutation 
+// app/graphql/mutations/Area/DeleteAreaMutation
 
 namespace App\GraphQL\Mutations\Area;
 
@@ -17,7 +17,8 @@ class DeleteAreaMutation extends Mutation
 
     public function type(): Type
     {
-        return Type::string();
+        //return Type::string();
+        return Type::boolean();
     }
 
     public function args(): array
@@ -33,11 +34,13 @@ class DeleteAreaMutation extends Mutation
 
     public function resolve($root, $args)
     {
-        try {
-            $area = Area::findOrFail($args['id']);
-            return $area->delete() ? 'Área deletada' : 'Falha ao deletar a área';
-        } catch (\Exception $e) {
-            return 'Área não encontrada'; // Mensagem personalizada se a área não existir
+        $area = Area::find($args['id']);
+        if ((bool)$area) {
+            $area->delete();
+            return True;
+        }
+        else {
+            throw new \Exception('Area não encontrada');
         }
     }
 }

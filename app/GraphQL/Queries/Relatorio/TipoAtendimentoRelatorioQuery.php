@@ -16,9 +16,9 @@ class TipoAtendimentoRelatorioQuery extends Query
     public function authorize($root, array $args, $ctx, ResolveInfo $resolveInfo = null, Closure $getSelectFields = null): bool
     {
         // Login necessario
-        if (Auth::guest()) {
-            throw new \Exception('Acesso não autorizado, favor realizar login no sistema');
-        }
+        // if (Auth::guest()) {
+        //     throw new \Exception('Acesso não autorizado, favor realizar login no sistema');
+        // }
 
         // Demais verificações
         if (auth()->user()->type != 'gerente') {
