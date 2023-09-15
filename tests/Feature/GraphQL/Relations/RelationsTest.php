@@ -4,38 +4,39 @@ namespace Tests\Feature\GraphQL\Relations;
 
 use App\Models\Area;
 use App\Models\User;
+use Exception;
 use Tests\TestCase;
 
 class RelationsTest extends TestCase
 {
     public function testConnectAnalistaToArea()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['type' => 'atendente']);
         $token = auth()->login($user);
 
-        // Dados para a nova relation
-        $analistaId = User::factory()->create(['type' => 'suporte'])->id;
-        $areaId = Area::factory()->create()->id;
+        // Dados para a nova relação
+        $analista = User::factory()->create(['type' => 'suporte']);
+        $area = Area::factory()->create();
 
-        // Consulta do GraphQL para criar uma relacao
+        // Consulta do GraphQL para criar uma relação
         $query = '
-        mutation(
-            $analistaId: Int!
-            $areaId: Int!){
-            associateArea(
-                analistaId: $analistaId
-                areaId: $areaId
-                )
-        }
-        ';
+    mutation(
+        $analistaId: Int!
+        $areaId: Int!){
+        associateArea(
+            analistaId: $analistaId
+            areaId: $areaId
+        )
+    }
+    ';
 
         // Variáveis para a consulta
         $variables = [
-            'analistaId' => $analistaId,
-            'areaId' => $areaId,
+            'analistaId' => $analista->id,
+            'areaId' => $area->id,
         ];
 
-        // Realize a consulta GraphQL com as variáveis
+        // Execute a consulta GraphQL com as variáveis
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->postJson('/graphql', [
@@ -43,14 +44,13 @@ class RelationsTest extends TestCase
             'variables' => $variables,
         ]);
 
-        // Verifique a resposta da consulta
-        $response->assertStatus(200)
-            ->assertJsonStructure([
-                'data' => [
-                    'associateArea' => [],
-                ],
-            ]);
+        $response->assertJson([
+            'data' => [
+                'associateArea' => "Analista {$analista->name} associado com sucesso com area {$area->title}",
+            ],
+        ]);
     }
+
 
     public function testDisconnectAnalistaToArea()
     {
@@ -59,9 +59,8 @@ class RelationsTest extends TestCase
 
         // Dados para a nova relation
         $analista = User::factory()->create(['type' => 'suporte']);
-        $analistaId = $analista->id;
-        $areaId = Area::factory()->create()->id;
-        $analista->areas()->attach($areaId);
+        $area = Area::factory()->create();
+        $analista->areas()->attach($area->id);
 
         // Consulta do GraphQL para criar uma relacao
         $query = '
@@ -77,8 +76,8 @@ class RelationsTest extends TestCase
 
         // Variáveis para a consulta
         $variables = [
-            'analistaId' => $analistaId,
-            'areaId' => $areaId,
+            'analistaId' => $analista->id,
+            'areaId' => $area->id,
         ];
 
         // Realize a consulta GraphQL com as variáveis
@@ -90,11 +89,46 @@ class RelationsTest extends TestCase
         ]);
 
         // Verifique a resposta da consulta
-        $response->assertStatus(200)
-            ->assertJsonStructure([
-                'data' => [
-                    'dissociateArea' => [],
-                ],
-            ]);
+        $response->assertJson([
+            'data' => [
+                'dissociateArea' => "Analista {$analista->name} dessvinculado com sucesso da area {$area->title}",
+            ],
+        ]);
+    }
+
+    public function testConnectAtendenteToArea()
+    {
+        $user = User::factory()->create(['type' => 'atendente']);
+        $token = auth()->login($user);
+
+        // Dados para a nova relação
+        $analista = User::factory()->create(['type' => 'atendente']);
+        $area = Area::factory()->create();
+
+        // Consulta do GraphQL para criar uma relação
+        $query = '
+        mutation(
+            $analistaId: Int!
+            $areaId: Int!){
+            associateArea(
+                analistaId: $analistaId
+                areaId: $areaId
+            )
+        }
+    ';
+
+        $variables = [
+            'analistaId' => $analista->id,
+            'areaId' => $area->id,
+        ];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->postJson('/graphql', [
+            'query' => $query,
+            'variables' => $variables,
+        ]);
+
+        $response->assertJsonFragment(['debugMessage' => 'Somente usuarios do tipo suporte podem ser associados com areas']);
     }
 }

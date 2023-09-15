@@ -4,15 +4,19 @@ namespace Tests\Feature\GraphQL\Atendimento;
 
 use App\Models\Atendimento;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AtendimentosQueryTest extends TestCase
 {
+    use RefreshDatabase;
 
     public function testUserCanGetListOfAtendimentos()
     {
         $user = User::factory()->create();
         $token = auth()->login($user);
+
+        $atendimento = Atendimento::factory()->create();
 
         // Consulta do GraphQL
         $query = '
@@ -33,10 +37,12 @@ class AtendimentosQueryTest extends TestCase
 
         // Verificando a resposta da consulta
         $response->assertStatus(200)
-            ->assertJsonStructure([
+            ->assertJson([
                 'data' => [
                     'atendimentos' => [
-                        '*' => [],
+                        [
+                            'id' => $atendimento->id,
+                        ],
                     ],
                 ],
             ]);
@@ -74,9 +80,11 @@ class AtendimentosQueryTest extends TestCase
 
         // Verifique a resposta da consulta
         $response->assertStatus(200)
-            ->assertJsonStructure([
+            ->assertJson([
                 'data' => [
-                    'atendimento' => [],
+                    'atendimento' => [
+                        'id' => $atendimento->id,
+                    ],
                 ],
             ]);
     }

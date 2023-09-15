@@ -4,20 +4,25 @@ namespace Tests\Feature\GraphQL\Cliente;
 
 use App\Models\Cliente;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ClienteQueryTest extends TestCase
 {
+    use RefreshDatabase;
 
     public function testUserCanGetListOfClientes()
     {
+
         $user = User::factory()->create();
         $token = auth()->login($user);
+        $cliente = Cliente::factory()->create();
 
         // Consulta do GraphQL
         $query = '
             query {
                 clientes {
+                    title
                     id
                 }
             }
@@ -33,10 +38,13 @@ class ClienteQueryTest extends TestCase
 
         // Verificando a resposta da consulta
         $response->assertStatus(200)
-            ->assertJsonStructure([
+            ->assertJson([
                 'data' => [
                     'clientes' => [
-                        '*' => [],
+                        [
+                            'title' => $cliente->title,
+                            'id' => $cliente->id,
+                        ],
                     ],
                 ],
             ]);
@@ -53,6 +61,7 @@ class ClienteQueryTest extends TestCase
         $query = '
         query ($id: Int!) {
             cliente(id: $id) {
+                title
                 id
             }
         }
@@ -73,9 +82,12 @@ class ClienteQueryTest extends TestCase
 
         // Verifique a resposta da consulta
         $response->assertStatus(200)
-            ->assertJsonStructure([
+            ->assertJson([
                 'data' => [
-                    'cliente' => [],
+                    'cliente' => [
+                        'title' => $cliente->title,
+                        'id' => $cliente->id,
+                    ],
                 ],
             ]);
     }

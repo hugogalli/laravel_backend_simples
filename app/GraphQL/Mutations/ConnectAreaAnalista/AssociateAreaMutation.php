@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations\ConnectAreaAnalista;
 
 use App\Models\Area;
 use App\Models\User;
+use Exception;
 use Rebing\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -39,11 +40,11 @@ class AssociateAreaMutation extends Mutation
         $analista = User::findOrFail($args['analistaId']);
 
         if ($analista->type != "suporte") {
-            return 'Somente usuarios do tipo suporte podem ser associados com áreas';
+            throw new Exception('Somente usuarios do tipo suporte podem ser associados com areas');
         }
 
         if ($analista->areas->contains($args['areaId'])) {
-            return 'Analista já esta associado com a área';
+            throw new Exception('Analista já esta associado com a área');
         }
 
         $area = Area::findOrFail($args['areaId']);

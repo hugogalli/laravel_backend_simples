@@ -24,12 +24,13 @@ class AtendimentoFactory extends Factory
     {
         $clienteIds = Cliente::pluck('id')->toArray();
         $areaIds = Area::pluck('id')->toArray();
+        $userIds = User::where('type', 'atendente')->pluck('id')->toArray();
 
         return [
             'title' => $this->faker->word,
             'tipo' => $this->faker->randomElement(['problema', 'duvida', 'solicitacao']),
             'description' => $this->faker->sentence,
-            'user_id' => User::factory(),
+            'user_id' => $this->faker->randomElement($userIds)?:User::factory(),
             'pessoa' => $this->faker->name,
             'status' => 'pendente',
             'cliente_id' => $this->faker->randomElement($clienteIds)?:Cliente::factory(),

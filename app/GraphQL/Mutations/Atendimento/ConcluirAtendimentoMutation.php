@@ -43,11 +43,11 @@ class ConcluirAtendimentoMutation extends Mutation
         $analistaId = Auth::id();
 
         if (Auth::user()->type != 'suporte') {
-            return 'Apenas suportes podem completar atendimentos.';
+            throw new \Exception('Apenas suportes podem completar atendimentos!');
         }
 
         if ($analistaId != $atendimento->analista_id) {
-            return 'Você não é o dono desse atendimento';
+            throw new \Exception('Você não é o dono desse atendimento!');
         }
 
         $atendimento->status = 'concluido';

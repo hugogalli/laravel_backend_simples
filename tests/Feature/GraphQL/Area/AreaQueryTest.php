@@ -4,14 +4,18 @@ namespace Tests\Feature\GraphQL\Area;
 
 use App\Models\Area;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AreaQueryTest extends TestCase
 {
 
+    use RefreshDatabase;
+
     public function testUserCanGetListOfAreas()
     {
         $user = User::factory()->create();
+        $area = Area::factory()->create();
         $token = auth()->login($user);
 
         // Consulta do GraphQL
@@ -33,10 +37,12 @@ class AreaQueryTest extends TestCase
 
         // Verificando a resposta da consulta
         $response->assertStatus(200)
-            ->assertJsonStructure([
+            ->assertJson([
                 'data' => [
                     'areas' => [
-                        '*' => [],
+                        [
+                            'id' => $area->id,
+                        ],
                     ],
                 ],
             ]);
@@ -73,9 +79,11 @@ class AreaQueryTest extends TestCase
 
         // Verifique a resposta da consulta
         $response->assertStatus(200)
-            ->assertJsonStructure([
+            ->assertJson([
                 'data' => [
-                    'area' => [],
+                    'area' => [
+                        'id' => $area->id,
+                    ],
                 ],
             ]);
     }
