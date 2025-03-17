@@ -4,8 +4,7 @@ Siga estas etapas para configurar e executar o projeto localmente:
 
 
 1. Clone o repositório: 
-git clone https://github.com/hugogalli/sh3_backend
-
+git clone https://github.com/hugogalli/laravel_backend_simples
 
 2. Instale as dependências do Composer: 
 composer install
